@@ -9,6 +9,8 @@ import AppointmentController from './app/controllers/AppointmentController';
 import ScheduleController from './app/controllers/ScheduleController';
 import NotificationController from './app/controllers/NotificationController';
 import PeriodController from './app/controllers/PeriodController';
+import IncomeController from './app/controllers/IncomeController';
+import ExpenseController from './app/controllers/ExpenseController';
 
 import authMiddleware from './app/middlewares/auth';
 import CostCenterController from './app/controllers/CostCenterController';
@@ -28,6 +30,12 @@ routes.delete('/users/:id', UserController.delete);
 routes.get('/cost_centers', CostCenterController.index);
 routes.get('/cost_centers/:name', CostCenterController.show);
 routes.post('/cost_centers', CostCenterController.store);
+
+routes.post('/incomes', IncomeController.store);
+routes.get('/incomes', IncomeController.index);
+
+routes.post('/expenses', ExpenseController.store);
+routes.get('/expenses', ExpenseController.index);
 
 routes.get('/periods', PeriodController.show);
 routes.post('/periods', PeriodController.store);

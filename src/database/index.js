@@ -5,10 +5,12 @@ import User from '../app/models/User';
 import File from '../app/models/File';
 import Appointment from '../app/models/Appointment';
 import CostCenter from '../app/models/CostCenter';
+import Income from '../app/models/Income';
+import Expense from '../app/models/Expense';
 
 import databaseConfig from '../config/database';
 
-const models = [User, File, Appointment, CostCenter];
+const models = [User, File, Appointment, CostCenter, Income, Expense];
 
 class Database {
   constructor() {
