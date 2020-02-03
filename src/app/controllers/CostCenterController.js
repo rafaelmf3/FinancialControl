@@ -84,14 +84,10 @@ class CostCenterController {
   }
 
   async delete(req, res) {
-    CostCenter.find({
-      where: { name: req.params.name },
-    }).then(result => {
-      return CostCenter.destroy({ where: { name: req.params.name } }).then(
-        () => {
-          return res.status(200).json({ response: result });
-        }
-      );
+    CostCenter.findByPk(req.params.id).then(result => {
+      return CostCenter.destroy(req.params.id).then(() => {
+        return res.status(200).json({ response: result });
+      });
     });
     return res.status(400).json({ error: "CostCenter don't exists" });
   }
