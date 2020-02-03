@@ -10,10 +10,7 @@ class IncomeController {
   }
 
   async show(req, res) {
-    const incomeDetail = await Income.findOne({
-      where: { name: req.params.name },
-    });
-
+    const incomeDetail = await Income.findByPk(req.params.id);
     if (incomeDetail === null) {
       return res.status(404).json({ error: "Income don't exists" });
     }
@@ -52,19 +49,19 @@ class IncomeController {
       return res.status(400).json({ error: 'Validation fails' });
     }
 
-    const costCenter = await Income.findByPk(req.name);
+    const income = await Income.findByPk(req.name);
 
-    if (req.body.name !== costCenter.name) {
-      const costCenterExists = await Income.findOne({
+    if (req.body.name !== income.name) {
+      const incomeExists = await Income.findOne({
         where: { name: req.body.name },
       });
 
-      if (costCenterExists) {
+      if (incomeExists) {
         return res.status(400).json({ error: 'Income already exists' });
       }
     }
 
-    await costCenter.update(req.body);
+    await income.update(req.body);
 
     const { id, name, category } = await Income.findByPk(req.name);
 
@@ -76,10 +73,8 @@ class IncomeController {
   }
 
   async delete(req, res) {
-    Income.find({
-      where: { name: req.params.name },
-    }).then(result => {
-      return Income.destroy({ where: { name: req.params.name } }).then(() => {
+    Income.findByPk(req.params.id).then(result => {
+      return Income.destroy(req.params.id).then(() => {
         return res.status(200).json({ response: result });
       });
     });

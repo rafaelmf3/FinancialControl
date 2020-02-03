@@ -10,12 +10,10 @@ class ExpenseController {
   }
 
   async show(req, res) {
-    const incomeDetail = await Expense.findOne({
-      where: { name: req.params.name },
-    });
+    const incomeDetail = await Expense.findByPk(req.params.id);
 
     if (incomeDetail === null) {
-      return res.status(404).json({ error: "Income don't exists" });
+      return res.status(404).json({ error: "Expense don't exists" });
     }
 
     return res.status(200).json(incomeDetail);
@@ -52,19 +50,19 @@ class ExpenseController {
       return res.status(400).json({ error: 'Validation fails' });
     }
 
-    const costCenter = await Expense.findByPk(req.name);
+    const expense = await Expense.findByPk(req.params.id);
 
-    if (req.body.name !== costCenter.name) {
-      const costCenterExists = await Expense.findOne({
+    if (req.body.name !== expense.name) {
+      const expenseExists = await Expense.findOne({
         where: { name: req.body.name },
       });
 
-      if (costCenterExists) {
+      if (expenseExists) {
         return res.status(400).json({ error: 'Expense already exists' });
       }
     }
 
-    await costCenter.update(req.body);
+    await expense.update(req.body);
 
     const { id, name, category } = await Expense.findByPk(req.name);
 
@@ -76,10 +74,8 @@ class ExpenseController {
   }
 
   async delete(req, res) {
-    Expense.find({
-      where: { name: req.params.name },
-    }).then(result => {
-      return Expense.destroy({ where: { name: req.params.name } }).then(() => {
+    Expense.findByPk(req.params.id).then(result => {
+      return Expense.destroy(req.params.id).then(() => {
         return res.status(200).json({ response: result });
       });
     });

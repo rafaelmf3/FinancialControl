@@ -33,9 +33,15 @@ routes.post('/cost_centers', CostCenterController.store);
 
 routes.post('/incomes', IncomeController.store);
 routes.get('/incomes', IncomeController.index);
+routes.put('/incomes/:id', IncomeController.update);
+routes.delete('/incomes/:id', IncomeController.delete);
+routes.get('/incomes/:id', IncomeController.show);
 
 routes.post('/expenses', ExpenseController.store);
 routes.get('/expenses', ExpenseController.index);
+routes.put('/expenses/:id', ExpenseController.update);
+routes.delete('/expenses/:id', ExpenseController.delete);
+routes.get('/expenses/:id', ExpenseController.show);
 
 routes.get('/periods', PeriodController.show);
 routes.post('/periods', PeriodController.store);
