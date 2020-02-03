@@ -4,19 +4,19 @@ import Expense from '../models/Expense';
 
 class ExpenseController {
   async index(req, res) {
-    const incomesList = await Expense.findAll();
+    const expenseList = await Expense.findAll();
 
-    return res.status(200).json(incomesList);
+    return res.status(200).json(expenseList);
   }
 
   async show(req, res) {
-    const incomeDetail = await Expense.findByPk(req.params.id);
+    const expenseDetail = await Expense.findByPk(req.params.id);
 
-    if (incomeDetail === null) {
+    if (expenseDetail === null) {
       return res.status(404).json({ error: "Expense don't exists" });
     }
 
-    return res.status(200).json(incomeDetail);
+    return res.status(200).json(expenseDetail);
   }
 
   async store(req, res) {
